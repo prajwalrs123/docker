@@ -10,7 +10,7 @@ pipeline {
          stage('Docker build and run') {
             steps {
                bat '''docker build -t image .
-                      docker run --name dockercont image''' 
+                      docker run --name contdock image''' 
             }
         }
         stage('Docker push') {
