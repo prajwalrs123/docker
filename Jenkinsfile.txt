@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git docker') {
+            steps {
+               git branch: 'main', url: 'https://github.com/prajwalrs123/docker.git' 
+            }
+        }
+         stage('Docker build and run') {
+            steps {
+               bat '''docker build -t image .
+                      docker run --name dockercont image''' 
+            }
+        }
+        stage('Docker push') {
+            steps { 
+               bat '''docker login
+                      docker tag image prajwalrs/image:v1
+                      docker push prajwalrs/image:v1'''
+            }
+        }
+    }
+}    
